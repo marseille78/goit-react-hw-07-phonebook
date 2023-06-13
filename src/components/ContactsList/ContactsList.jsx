@@ -12,14 +12,21 @@ const ContactsList = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
+  const handleDelete = async (id) => {
+    console.log('handleDelete: ', id);
+    await dispatch(deleteContact(id));
+    // await dispatch(fetchContacts());
+  }
+
   const listContacts = items.map(({ id, name, phone }) => {
+    console.log('listContacts: ', id);
     return (
       <li key={ id } className={ css.item }>
         { name }: <span className={ css.value }>{ phone }</span>
         <button
           className={ css.btn }
           type="button"
-          onClick={() => dispatch(deleteContact(id))}
+          onClick={() => handleDelete(id)}
         >
           Delete
         </button>

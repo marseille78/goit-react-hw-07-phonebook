@@ -35,6 +35,7 @@ const handleFulfilledCreate = (state, { payload }) => {
 };
 
 const handleFulfilledRemove = (state, { payload }) => {
+  console.log('handleFulfilledRemove', payload);
   state.items = state.items.filter(item => item.id !== payload);
 };
 

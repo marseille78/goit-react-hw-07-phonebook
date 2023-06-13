@@ -8,7 +8,10 @@ export const fetchContacts = createAsyncThunk('contacts/fetchAll', () => getCont
 
 export const addContact = createAsyncThunk('contacts/addContact', (data) => createContact(data));
 
-export const deleteContact = createAsyncThunk('contacts/deleteContact', (id) => removeContact(id));
+export const deleteContact = createAsyncThunk('contacts/deleteContact', (id) => {
+  console.log('contacts/deleteContact', id);
+  removeContact(id);
+});
 
 // export const fetchContacts = createAsyncThunk(
 //   'contacts/fetchAll',
