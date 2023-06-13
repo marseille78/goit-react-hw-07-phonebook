@@ -6,7 +6,6 @@ export const getContacts = async () => {
 };
 
 export const createContact = async (data) => {
-  console.log('data: ', data);
   const res = await fetch(`${BASE_URL}/contacts`, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -18,7 +17,6 @@ export const createContact = async (data) => {
 };
 
 export const removeContact = async (id) => {
-  console.log('removeContact: ', id);
   const res = await fetch(`${BASE_URL}/contacts/${id}`, {
     method: 'DELETE'
   });

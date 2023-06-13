@@ -35,8 +35,7 @@ const handleFulfilledCreate = (state, { payload }) => {
 };
 
 const handleFulfilledRemove = (state, { payload }) => {
-  console.log('handleFulfilledRemove', payload);
-  state.items = state.items.filter(item => item.id !== payload);
+  state.items = state.items.filter(item => item.id !== payload.id);
 };
 
 const handleRejected = (state, { payload }) => {
@@ -53,30 +52,9 @@ const contactsSlice = createSlice({
       .addCase(fetchContacts.fulfilled, handleFulfilledGet)
       .addCase(addContact.fulfilled, handleFulfilledCreate)
       .addCase(deleteContact.fulfilled, handleFulfilledRemove)
-      .addMatcher(
-        isAnyOf(
-          ...fn(PENDING)
-          // fetchContacts.pending,
-          // addContact.pending,
-          // deleteContact.pending
-        ), handlePending
-      )
-      .addMatcher(
-        isAnyOf(
-          ...fn(REJECTED)
-          // fetchContacts.rejected,
-          // addContact.rejected,
-          // deleteContact.rejected
-        ), handleRejected
-      )
-      .addMatcher(
-        isAnyOf(
-          ...fn(FULFILLED)
-          // fetchContacts.fulfilled,
-          // addContact.fulfilled,
-          // deleteContact.fulfilled
-        ), handleFullfiled
-      )
+      .addMatcher(isAnyOf(...fn(PENDING)), handlePending)
+      .addMatcher(isAnyOf(...fn(REJECTED)), handleRejected)
+      .addMatcher(isAnyOf(...fn(FULFILLED)), handleFullfiled);
   }
 });
 

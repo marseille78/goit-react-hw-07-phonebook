@@ -1,11 +1,15 @@
-import css from './ContactsList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { deleteContact, fetchContacts } from '../../redux/contacts/contactsOperations';
 
+import css from './ContactsList.module.css';
+import { getFilter } from '../../redux/filter/filterSelector';
+
 const ContactsList = () => {
 
   const { items, error, isLoading } = useSelector(state => state.contacts);
+  const filterState = useSelector(getFilter);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -13,13 +17,14 @@ const ContactsList = () => {
   }, [dispatch]);
 
   const handleDelete = async (id) => {
-    console.log('handleDelete: ', id);
     await dispatch(deleteContact(id));
-    // await dispatch(fetchContacts());
   }
 
-  const listContacts = items.map(({ id, name, phone }) => {
-    console.log('listContacts: ', id);
+  const getVisibleItems = () => {
+    return items.filter(({ name }) => name.toLowerCase().includes(filterState.toLowerCase()));
+  }
+
+  const listContacts = getVisibleItems().map(({ id, name, phone }) => {
     return (
       <li key={ id } className={ css.item }>
         { name }: <span className={ css.value }>{ phone }</span>
